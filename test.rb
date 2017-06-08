@@ -16,7 +16,6 @@ for i in 0..array2d.length - 1
 		end
 	end
 end
-
 time = Time.now - time
 puts "#{copy} created in #{time}ms"
 

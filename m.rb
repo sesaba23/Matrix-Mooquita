@@ -21,20 +21,39 @@ def dimen(arr, num=1)
 		
 	end
 	# return
-	dimen
+	dimen * num
 end
 
-def calculate_max_dimen(arr2d)
-	temp_array = arr2d[0]	
-	arr2d.each do |row|
-		row.each do |column|
-			puts column
+def calculate_temporal_array(array2d)
+	copy = Marshal.load(Marshal.dump(array2d))
+	for i in 0..array2d.length - 1
+		for j in 0..array2d[0].length - 1
+			if i != 0
+				if array2d[i][j] == 0
+					copy[i][j] = 0
+				else
+					copy[i][j] = copy[i][j] + copy[i-1][j]
+				end
+			end
 		end
-		puts dimen(row)
 	end
+	copy
 end
 
 #puts dimen([1,0,1,1], 1)
 #puts dimen([1,0,3,1,0,0,5,5,5,5,1,0,1,5,5,5,0], 5)
-matrix = [[1,1,1,0],[1,1,0,1],[1,0,1,1],[1,1,1,1,0]]
-calculate_max_dimen(matrix)
+array2d = [[1,1,0],[1,1,1],[1,1,1]]
+###### Method using for loop ####################
+copy = calculate_temporal_array(array2d)
+for_loop_time = Time.now
+dimens = copy.collect do |row|
+	dimen(row, row.max)
+end
+puts "Dimens: #{dimens}"
+puts "The size of the maximun's subarray is: #{dimens.max}"
+for_loop_time = Time.now - for_loop_time
+puts "It has been calculated in #{for_loop_time} ms"
+
+#puts "Temporaly array created: #{copy}"
+
+
