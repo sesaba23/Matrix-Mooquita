@@ -1,7 +1,16 @@
-# Returns the maximun number of times that a given number
-# appears joined, one after each other, in an array
+# Ruby on Rails challenge 1 - Dynamic programming
+# Given a matrix consisting of 0's and 1's, find the maximum size # sub-matrix consisting of only 1's.
+#
+# Author Sergio Sanchez Barahona
+# 10/06/2017
+
+
+# Returns the maximum number of times that one value
+# appears joined, one after another, in a given array
 def dimen(arr, num=1)
 	dimen = 0
+	# We add a new '0' last column in order to let the algorithm
+	# save dimen during last iteration if necessary   
 	arr << 0
 	# calculate tdimen and saved it for next itreration
 	arr.inject(0) do |tdimen, x|
@@ -18,12 +27,14 @@ def dimen(arr, num=1)
 			#puts "Value #{x}: tdimen #{tdimen}, dimen: #{dimen}"
 			tdimen = 0
 		end
-		
 	end
-	# return
+	# return maximun number of '1s' found
 	dimen * num
 end
 
+# This method create a temporal array saving the maximun dimension
+# found following the algorithm describe in README file
+# USING FOR LOOPS
 def calculate_temporal_array(array2d)
 	copy = Marshal.load(Marshal.dump(array2d))
 	for i in 0..array2d.length - 1
@@ -40,6 +51,8 @@ def calculate_temporal_array(array2d)
 	copy
 end
 
+# Same as the previous function but using ITERATORS
+# of ENUMERABLE MODULE
 def calculate_temporal_array_new(array2d)
 	copy = Marshal.load(Marshal.dump(array2d))
 	array2d.each_with_index do |array, i|
@@ -56,6 +69,8 @@ def calculate_temporal_array_new(array2d)
 	copy
 end
 
+# Create a random matrix with a given number or columns and rows
+# selected by the user
 def create_array
 	print "Please, select number of rows: "
 	rows = gets.chomp.to_i
@@ -73,6 +88,7 @@ def create_array
 array2d
 end
 
+######## Tests used during implementation ##############
 ##### Uncomment to test if dimen method works ##########
 #puts dimen([1,0,1,1], 1)
 #puts dimen([1,0,3,1,0,0,5,5,5,5,1,0,1,5,5,5,0], 5)
@@ -89,7 +105,7 @@ end
 puts "----------------------------"
 puts ""
 
-###### Method using for loop ####################
+###### Solution 1 using for loop ####################
 copy = calculate_temporal_array(array2d)
 for_loop_time = Time.now
 dimens = copy.collect do |row|
@@ -102,7 +118,7 @@ puts "It has been calculated in #{for_loop_time} ms using for loop"
 #puts "Temporaly array created: #{copy}"
 puts "----------------------------"
 
-###### Method using for collect method of Enumeration module ##########
+###### Solution 2 using collect method of Enumeration module ##########
 copy = calculate_temporal_array_new(array2d)
 time = Time.now
 dimens = copy.collect do |row|
