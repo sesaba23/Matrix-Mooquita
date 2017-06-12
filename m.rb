@@ -12,12 +12,14 @@ def dimen(arr, num=1)
 	# We add a new '0' last column in order to let the algorithm
 	# save dimen during last iteration if necessary   
 	arr << 0
+(0..num).to_a.collect do |index|
+dimen = 0;
 	# calculate tdimen and saved it for next itreration
 	arr.inject(0) do |tdimen, x|
 		# If num exits in the position x of the array,
 		# tdimen is incremented but only if the previous
 		# index was also num.
-		if x == num
+		if x >= index
 			#puts "Value #{x}: tdimen #{tdimen}, dimen: #{dimen}"
 			tdimen + 1
 		else
@@ -29,7 +31,9 @@ def dimen(arr, num=1)
 		end
 	end
 	# return maximun number of '1s' found
-	dimen * num
+	dimen != 0? dimen * index : 0
+end.max
+	
 end
 
 # This method create a temporal array saving the maximun dimension
@@ -90,11 +94,11 @@ end
 
 ######## Tests used during implementation ##############
 ##### Uncomment to test if dimen method works ##########
-#puts dimen([1,0,1,1], 1)
-#puts dimen([1,0,3,1,0,0,5,5,5,5,1,0,1,5,5,5,0], 5)
-#array2d = [[1,1,0],[1,1,1],[1,1,1]]
-
 array2d = create_array
+#array2d = [[0,1,0,0], [1,1,1,1],[1,1,1,1], [1,1,1,1]]
+#array2d = [0,0,0,0,0], [0,0,0,0,0], [1,1,1,1,1], [1,1,1,1,1], [1,1,1,1,1]
+#array2d = [0,1,0,0,0], [1,1,1,1,1], [0,1,0,0,0], [0,1,0,0,0], [0,0,0,0,0]
+
 puts ""
 puts "----------------------------"
 puts "Array created is:"

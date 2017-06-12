@@ -1,13 +1,5 @@
-Watch out!!! There is an issue found by one user! It doesn't work correctly with this type of matrix:
-0100
-1111
-1111
-1111
-
-The max dimen given by my solution is 4, In fact the correct answer should be 12 (4x3). 
-I am trying to fix it. Please, wait a few days for the solution.
-If you want to help me, get in touch with me!
-
+update 12/06/2017. All works well again, even with reviewer matrix.
+You can test different cases uncomment lines when array2d is created (at the end of the m.rb file)
 
 First of all, I tried to implement a solution iterating over all ‘1s’ elements of the array looking for surrounding elements equal to ‘1’. 
 I attach a hand-made diagram to explain this and what it follows.
